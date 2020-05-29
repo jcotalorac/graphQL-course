@@ -23,7 +23,7 @@ const typeDefs = `
 `
 const resolvers = {
     Query: {
-        greeting(parent, args, ctx) {
+        greeting(parent, args, ctx, info) {
             return `Hello ${name}`;
         },
         me() {
