@@ -25,7 +25,10 @@ const resolvers = {
     Query: {
         greeting(parent, args, ctx, info) {
             console.log(args);
-            return `Hello ${args.name}`;
+            if(args.name) {
+                return `Hello ${args.name}`
+            }
+            return 'Hello!!'
         },
         me() {
             return {
