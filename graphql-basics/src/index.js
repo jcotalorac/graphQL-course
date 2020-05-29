@@ -24,7 +24,8 @@ const typeDefs = `
 const resolvers = {
     Query: {
         greeting(parent, args, ctx, info) {
-            return `Hello ${name}`;
+            console.log(args);
+            return `Hello ${args.name}`;
         },
         me() {
             return {
