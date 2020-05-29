@@ -5,3 +5,10 @@ const typeDefs = `
             hello: String!
         }
 `
+const resolvers = {
+    Query: {
+        hello() {
+            return 'This is my first query!'
+        }
+    }
+}
