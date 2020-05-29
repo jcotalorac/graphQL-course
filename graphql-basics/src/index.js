@@ -4,6 +4,8 @@ const typeDefs = `
         type Query {
             hello: String!
             name: String!
+            location: String!
+            bio: String!
         }
 `
 const resolvers = {
@@ -13,6 +15,12 @@ const resolvers = {
         },
         name() {
             return 'Name JC'
+        },
+        location() {
+            return 'My location'
+        },
+        bio() {
+            return 'My bio'
         }
     }
 }
