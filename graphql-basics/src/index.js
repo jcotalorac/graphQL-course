@@ -1,8 +1,7 @@
-import currentLocation, { message, name, greeting } from './myModule'
-import currLocation from './myModule';
+import { GraphQLServer } from 'graphql-yoga'
 
-console.log(message);
-console.log(name);
-console.log(currentLocation);
-console.log(currLocation);
-console.log(greeting('hey'));
+const typeDefs = `
+        type Query {
+            hello: String!
+        }
+`
