@@ -24,7 +24,7 @@ const resolvers = {
             return true
         },
         gpa() {
-            return null
+            return 3.14
         }
     }
 }
