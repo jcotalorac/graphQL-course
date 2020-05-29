@@ -3,6 +3,7 @@ import { GraphQLServer } from 'graphql-yoga'
 const typeDefs = `
         type Query {
             me: User!
+            post: Post!
         }
 
         type User {
@@ -10,6 +11,13 @@ const typeDefs = `
             name: String!
             email: String!
             age: Int
+        }
+
+        type Post {
+            id: ID!
+            title: String!
+            body: String!
+            published: Boolean!
         }
 `
 const resolvers = {
@@ -20,6 +28,14 @@ const resolvers = {
                 name: 'Other name',
                 email: 'mail',
                 age: 28
+            }
+        },
+        post() {
+            return {
+                id: 'asdqw12',
+                title: 'Post title',
+                body: 'Post body',
+                published: false
             }
         }
     }
