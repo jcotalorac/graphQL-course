@@ -23,6 +23,9 @@ const typeDefs = `
 `
 const resolvers = {
     Query: {
+        greeting(parent) {
+            return `Hello ${name}`;
+        },
         me() {
             return {
                 id: 123098,
