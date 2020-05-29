@@ -8,6 +8,13 @@ const typeDefs = `
             employed: Boolean!
             gpa: Float
         }
+
+        type User {
+            id: ID!
+            name: String!
+            email: String!
+            age: Int
+        }
 `
 const resolvers = {
     Query: {
