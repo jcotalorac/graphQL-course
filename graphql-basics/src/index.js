@@ -2,11 +2,7 @@ import { GraphQLServer } from 'graphql-yoga'
 
 const typeDefs = `
         type Query {
-            id: ID!
-            name: String!
-            age: Int!
-            employed: Boolean!
-            gpa: Float
+            me: User
         }
 
         type User {
@@ -18,21 +14,7 @@ const typeDefs = `
 `
 const resolvers = {
     Query: {
-        id() {
-            return 'abc123'
-        },
-        name() {
-            return 'Name JC'
-        },
-        age() {
-            return 28
-        },
-        employed() {
-            return true
-        },
-        gpa() {
-            return 3.14
-        }
+        
     }
 }
 
