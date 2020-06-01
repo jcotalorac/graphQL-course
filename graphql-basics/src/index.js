@@ -21,7 +21,7 @@ const users = [
 
 const typeDefs = `
         type Query {
-            users: [User!]!
+            users(query: String): [User!]!
             me: User!
             post: Post!
         }
