@@ -43,7 +43,12 @@ const typeDefs = `
 const resolvers = {
     Query: {
         users(parent, args, ctx, info) {
-            return users
+            if(!args.query) {
+                return users
+            }
+
+            return users.filter((user) => user.name.toLowerCase().includes(args.query.toLowerCase())
+            )
         },
         me() {
             return {
