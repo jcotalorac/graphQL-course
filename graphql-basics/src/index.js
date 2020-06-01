@@ -19,9 +19,31 @@ const users = [
     }
 ]
 
+const posts = [
+    {
+        id: '1',
+        title: 'Title1',
+        body: 'Body1',
+        published: true
+    },
+    {
+        id: '2',
+        title: 'Title2',
+        body: 'Body2',
+        published: false
+    },
+    {
+        id: '3',
+        title: 'Title3',
+        body: 'Body3',
+        published: false
+    }
+]
+
 const typeDefs = `
         type Query {
             users(query: String): [User!]!
+            posts(query: String): [Post!]!
             me: User!
             post: Post!
         }
@@ -49,6 +71,13 @@ const resolvers = {
 
             return users.filter((user) => user.name.toLowerCase().includes(args.query.toLowerCase())
             )
+        },
+        posts(parent, args, ctx, info) {
+            if(!args.query) {
+                return posts
+            }
+
+            return posts.filter((post) => post.title.toLowerCase().includes(args.query.toLowerCase()) || post.body.toLowerCase().includes(args.query.toLowerCase()))
         },
         me() {
             return {
