@@ -4,6 +4,7 @@ const typeDefs = `
         type Query {
             greeting(name: String): String!
             add(a: Float!, b: Float!): Float!
+            grades: [Int!]!
             me: User!
             post: Post!
         }
