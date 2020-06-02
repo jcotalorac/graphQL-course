@@ -99,6 +99,11 @@ const resolvers = {
                 published: false
             }
         }
+    },
+    Post: {
+        author(parent, args, ctx, info) {
+            
+        }
     }
 }
 
