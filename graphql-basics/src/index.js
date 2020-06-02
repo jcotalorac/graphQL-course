@@ -102,7 +102,7 @@ const resolvers = {
     },
     Post: {
         author(parent, args, ctx, info) {
-            
+            return users.find((user) => user.id === parent.author)
         }
     }
 }
