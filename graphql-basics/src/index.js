@@ -148,6 +148,12 @@ const resolvers = {
     },
     Mutation: {
         createUser(parent, args, ctx, info) {
+            const emailTaken = users.some((user) => user.email === args.email)
+            
+            if(emailTaken) {
+                throw new Error('Email already exists')
+            }
+
             const user = {
                 id: uuidv4(),
                 name: args.name,
