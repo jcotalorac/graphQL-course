@@ -145,6 +145,18 @@ const resolvers = {
             }
         }
     },
+    Mutation: {
+        createUser(parent, args, ctx, info) {
+            const user = {
+                id: '4',
+                name: args.name,
+                email: args.email,
+                age: args.age
+            }
+            users.push(user);
+            return user
+        }
+    },
     Post: {
         author(parent, args, ctx, info) {
             return users.find((user) => user.id === parent.author)
