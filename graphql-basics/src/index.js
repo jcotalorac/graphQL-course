@@ -1,4 +1,5 @@
 import { GraphQLServer } from 'graphql-yoga'
+import { v4 as uuidv4 } from 'uuid'
 
 const users = [
     {
@@ -148,7 +149,7 @@ const resolvers = {
     Mutation: {
         createUser(parent, args, ctx, info) {
             const user = {
-                id: '4',
+                id: uuidv4(),
                 name: args.name,
                 email: args.email,
                 age: args.age
