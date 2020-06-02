@@ -46,19 +46,23 @@ const posts = [
 const comments = [
     {
         id: '1',
-        text: 'Comment1'
+        text: 'Comment1',
+        author: '1'
     },
     {
         id: '2',
-        text: 'Comment2'
+        text: 'Comment2',
+        author: '2'
     },
     {
         id: '3',
-        text: 'Comment3'
+        text: 'Comment3',
+        author: '3'
     },
     {
         id: '4',
-        text: 'Comment4'
+        text: 'Comment4',
+        author: '1'
     }
 ]
 
@@ -90,6 +94,7 @@ const typeDefs = `
         type Comment {
             id: ID!
             text: String!
+            author: User!
         }
 `
 const resolvers = {
@@ -137,6 +142,11 @@ const resolvers = {
     User: {
         posts(parent, args, ctx, info) {
             return posts.filter((post) => post.author === parent.id)
+        }
+    },
+    Comment: {
+        author(parent, args, ctx, info) {
+            return users.find((user) => user.id === parent.author)
         }
     }
 }
