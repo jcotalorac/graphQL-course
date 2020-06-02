@@ -43,10 +43,30 @@ const posts = [
     }
 ]
 
+const comments = [
+    {
+        id: '1',
+        text: 'Comment1'
+    },
+    {
+        id: '2',
+        text: 'Comment2'
+    },
+    {
+        id: '3',
+        text: 'Comment3'
+    },
+    {
+        id: '4',
+        text: 'Comment4'
+    }
+]
+
 const typeDefs = `
         type Query {
             users(query: String): [User!]!
             posts(query: String): [Post!]!
+            comments: [Comment!]!
             me: User!
             post: Post!
         }
@@ -66,6 +86,11 @@ const typeDefs = `
             published: Boolean!
             author: User!
         }
+
+        type Comment {
+            id: ID!
+            text: String!
+        }
 `
 const resolvers = {
     Query: {
@@ -83,6 +108,9 @@ const resolvers = {
             }
 
             return posts.filter((post) => post.title.toLowerCase().includes(args.query.toLowerCase()) || post.body.toLowerCase().includes(args.query.toLowerCase()))
+        },
+        comments() {
+            return comments
         },
         me() {
             return {
