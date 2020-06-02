@@ -24,19 +24,22 @@ const posts = [
         id: '1',
         title: 'Title1',
         body: 'Body1',
-        published: true
+        published: true,
+        author: '1'
     },
     {
         id: '2',
         title: 'Title2',
         body: 'Body2',
-        published: false
+        published: false,
+        author: '1'
     },
     {
         id: '3',
         title: 'Title3',
         body: 'Body3',
-        published: false
+        published: false,
+        author: '2'
     }
 ]
 
@@ -60,6 +63,7 @@ const typeDefs = `
             title: String!
             body: String!
             published: Boolean!
+            author: User!
         }
 `
 const resolvers = {
