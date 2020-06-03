@@ -1,7 +1,7 @@
 import { GraphQLServer } from 'graphql-yoga'
 import { v4 as uuidv4 } from 'uuid'
 
-const users = [
+let users = [
     {
         id: '1',
         name: 'First',
@@ -20,7 +20,7 @@ const users = [
     }
 ]
 
-const posts = [
+let posts = [
     {
         id: '1',
         title: 'Title1',
@@ -44,7 +44,7 @@ const posts = [
     }
 ]
 
-const comments = [
+let comments = [
     {
         id: '1',
         text: 'Comment1',
@@ -192,6 +192,12 @@ const resolvers = {
 
             const deletedUser = users.splice(userIndex, 1)
             
+            posts = posts.filter((post) => {
+                const match = post.author === args.id
+
+                return !match
+            })
+
             return deletedUser[0]
         },
         createPost(parent, args, ctx, info) {
