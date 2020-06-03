@@ -5,20 +5,14 @@ import Query from './resolvers/Query'
 import Mutation from './resolvers/Mutation'
 import Post from './resolvers/Post'
 import User from './resolvers/User'
+import Comment from './resolvers/Comment'
 
 const resolvers = {
     Query,
     Mutation,
     Post,
     User,
-    Comment: {
-        author(parent, args, { db }, info) {
-            return db.users.find((user) => user.id === parent.author)
-        },
-        post(parent, args, { db }, info) {
-            return db.posts.find((post) => post.id === parent.post)
-        }
-    }
+    Comment
 }
 
 const server = new GraphQLServer({
