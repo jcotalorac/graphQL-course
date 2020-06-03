@@ -1,5 +1,4 @@
 import { GraphQLServer } from 'graphql-yoga'
-import { v4 as uuidv4 } from 'uuid'
 import db from './db'
 import Query from './resolvers/Query'
 import Mutation from './resolvers/Mutation'
