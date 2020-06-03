@@ -201,6 +201,8 @@ const resolvers = {
                 return !match
             })
 
+            comments = comments.filter((comment) => comment.author !== args.id)
+
             return deletedUser[0]
         },
         createPost(parent, args, ctx, info) {
