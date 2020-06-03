@@ -96,3 +96,5 @@ const Mutation = {
         return deletedComments[0]
     }
 }
+
+export { Mutation as default }
