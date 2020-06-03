@@ -6,7 +6,7 @@ const resolvers = {
     Query: {
         users(parent, args, ctx, info) {
             if(!args.query) {
-                return users
+                return ctx.db.users
             }
 
             return users.filter((user) => user.name.toLowerCase().includes(args.query.toLowerCase())
