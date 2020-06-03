@@ -195,6 +195,9 @@ const resolvers = {
             posts = posts.filter((post) => {
                 const match = post.author === args.id
 
+                if(match) {
+                    comments = comments.filter((comment) => comment.post !== post.id)
+                }
                 return !match
             })
 
