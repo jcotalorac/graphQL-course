@@ -1,44 +1,10 @@
 import { GraphQLServer } from 'graphql-yoga'
 import { v4 as uuidv4 } from 'uuid'
 import db from './db'
+import Query from './resolvers/Query'
 
 const resolvers = {
-    Query: {
-        users(parent, args, { db }, info) {
-            if(!args.query) {
-                return db.users
-            }
-
-            return db.users.filter((user) => user.name.toLowerCase().includes(args.query.toLowerCase())
-            )
-        },
-        posts(parent, args, { db }, info) {
-            if(!args.query) {
-                return db.posts
-            }
-
-            return db.posts.filter((post) => post.title.toLowerCase().includes(args.query.toLowerCase()) || post.body.toLowerCase().includes(args.query.toLowerCase()))
-        },
-        comments(parent, args, { db }, info) {
-            return db.comments
-        },
-        me() {
-            return {
-                id: 123098,
-                name: 'Other name',
-                email: 'mail',
-                age: 28
-            }
-        },
-        post() {
-            return {
-                id: 'asdqw12',
-                title: 'Post title',
-                body: 'Post body',
-                published: false
-            }
-        }
-    },
+    Query,
     Mutation: {
         createUser(parent, args, { db }, info) {
             const emailTaken = db.users.some((user) => user.email === args.data.email)
