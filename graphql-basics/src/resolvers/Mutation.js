@@ -37,6 +37,14 @@ const Mutation = {
 
         return deletedUsers[0]
     },
+    updateUser(parent, args, { db }, info) {
+        const { id, data } = args
+        const user = db.users.find((user) => user.id === id)
+
+        if(!user) {
+            throw new Error('User not found')
+        }
+    },
     createPost(parent, args, { db }, info) {
         const userExists = db.users.some((user) => user.id === args.data.author)
 
