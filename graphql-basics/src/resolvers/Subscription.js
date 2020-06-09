@@ -1,7 +1,7 @@
 const Subscription = {
     count: {
-        subscribe(parent, args, ctx, info) {
-            
+        subscribe(parent, args, { pubsub }, info) {
+
         }
     }
 }
