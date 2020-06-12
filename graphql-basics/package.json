@@ -14,6 +14,7 @@
     "babel-preset-env": "^1.7.0",
     "braces": "^2.3.2",
     "graphql-yoga": "^1.18.3",
+    "prisma": "^1.34.10",
     "uuid": "^8.1.0"
   },
   "devDependencies": {
