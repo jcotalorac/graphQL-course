@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/cli": "^7.10.1",
     "babel-preset-env": "^1.7.0",
     "braces": "^2.3.2",
     "graphql-yoga": "^1.18.3",
