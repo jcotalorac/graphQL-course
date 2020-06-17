@@ -15,22 +15,39 @@ const prisma = new Prisma({
 //     console.log(JSON.stringify(data, undefined, 2));
 // })
 
-prisma.mutation.createPost({
+// prisma.mutation.createPost({
+//     data: {
+//         title: "My new GraphQL post is live!",
+//         body: "You can find the new course here",
+//         published: true,
+//         author: {
+//             connect: {
+//                 id: "ckbd5f5if03hy0784dworkrig"
+//             }
+//         }
+//     }
+// }, '{ id title body published }')
+// .then((data) => {
+//     console.log(data);
+//     return prisma.query.users(null, '{ id name email posts { id title } }')
+// })
+// .then((data) => {
+//     console.log(JSON.stringify(data, undefined, 2));
+// })
+
+prisma.mutation.updatePost({
     data: {
-        title: "My new GraphQL post is live!",
-        body: "You can find the new course here",
-        published: true,
-        author: {
-            connect: {
-                id: "ckbd5f5if03hy0784dworkrig"
-            }
-        }
+        body: "Updating body",
+        published: true
+    },
+    where: {
+        id: "ckbjx0krh0a0h08505ecl47f8"
     }
-}, '{ id title body published }')
+}, '{ id }')
 .then((data) => {
     console.log(data);
-    return prisma.query.users(null, '{ id name email posts { id title } }')
+    return prisma.query.posts(null, '{ id title body published }')
 })
 .then((data) => {
-    console.log(JSON.stringify(data, undefined, 2));
+    console.log(JSON.stringify(data, undefined, 2))
 })
