@@ -24,6 +24,7 @@
     "@babel/node": "^7.8.7",
     "@babel/plugin-proposal-object-rest-spread": "^7.10.1",
     "@babel/preset-env": "^7.9.6",
+    "@graphql-cli/codegen": "^1.15.3",
     "apollo-server-core": "^2.14.3",
     "apollo-server-express": "^2.14.3",
     "apollo-server-lambda": "^2.14.3",
