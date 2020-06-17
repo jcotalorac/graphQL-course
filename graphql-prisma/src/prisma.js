@@ -7,5 +7,5 @@ const prisma = new Prisma({
 
 prisma.query.users(null, '{ id name email posts { id title } }')
 .then((data) => {
-    console.log(data);
+    console.log(JSON.stringify(data, undefined, 2));
 })
