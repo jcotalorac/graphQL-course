@@ -2,6 +2,8 @@ projects:
     prisma:
         schema: http://localhost:4466/
         extensions:
+            endpoints:
+                default: http://localhost:4466/
             codegen:
                 generates:
                     ./src/generated/prisma.graphql:
