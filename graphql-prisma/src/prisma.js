@@ -29,4 +29,8 @@ prisma.mutation.createPost({
 }, '{ id title body published }')
 .then((data) => {
     console.log(data);
+    return prisma.query.users(null, '{ id name email posts { id title } }')
+})
+.then((data) => {
+    console.log(JSON.stringify(data, undefined, 2));
 })
