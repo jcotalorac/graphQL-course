@@ -1,5 +1,5 @@
 const Query = {
-    users(parent, args, { db }, info) {
+    users(parent, args, { db, prisma }, info) {
         if(!args.query) {
             return db.users
         }
