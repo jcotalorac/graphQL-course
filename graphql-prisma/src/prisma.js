@@ -53,7 +53,7 @@ const prisma = new Prisma({
 }) */
 
 prisma.exists.Comment({
-    id: "abc123"
+    id: "ckbd5oh8w03o00784hseyeh8s"
 })
 .then((exists) => {
     console.log(exists);
