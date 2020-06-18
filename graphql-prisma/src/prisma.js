@@ -52,35 +52,59 @@ const prisma = new Prisma({
     console.log(JSON.stringify(data, undefined, 2))
 }) */
 
-const createPostForUser = async (authorId, data) => {
-    const post = await prisma.mutation.createPost({
-        data: {
-            ...data,
-            author: {
-                connect: {
-                    id: authorId
-                }
-            }
-        }
-    }, '{ id }')
+// const createPostForUser = async (authorId, data) => {
+//     const post = await prisma.mutation.createPost({
+//         data: {
+//             ...data,
+//             author: {
+//                 connect: {
+//                     id: authorId
+//                 }
+//             }
+//         }
+//     }, '{ id }')
 
+//     const user = await prisma.query.user({
+//         where: {
+//             id: authorId
+//         }
+//     }, '{ id name email posts { id title published } }')
+
+//     return user
+// }
+
+// createPostForUser('ckbd5f5if03hy0784dworkrig', {
+//     title: 'Great books to read',
+//     body: 'The War of Art',
+//     published: true
+// })
+// .then((user) => {
+//     console.log(JSON.stringify(user, undefined, 2));
+// })
+// .catch((error) => {
+//     console.log(error);
+// })
+
+const updatePostForUser = async (postId, data) => {
+    const post = await prisma.mutation.updatePost({
+        where: {
+            id: postId
+        },
+        data
+    }, '{ author { id } }')
     const user = await prisma.query.user({
         where: {
-            id: authorId
+            id: post.author.id
         }
     }, '{ id name email posts { id title published } }')
 
     return user
 }
 
-createPostForUser('ckbd5f5if03hy0784dworkrig', {
-    title: 'Great books to read',
-    body: 'The War of Art',
-    published: true
+updatePostForUser('ckbjwt6vz09v90850tlm5v775', {
+    title: 'Metamorphosys',
+    published: false
 })
 .then((user) => {
-    console.log(JSON.stringify(user, undefined, 2));
-})
-.catch((error) => {
-    console.log(error);
+    console.log(JSON.stringify(user, undefined, 2))
 })
