@@ -4,7 +4,14 @@ const Query = {
 
         if(args.query) {
             operationArgs.where = {
-                name_contains: args.query
+                OR: [
+                    {
+                        name_contains: args.query
+                    },
+                    {
+                        email_contains: args.query
+                    }
+                ]
             }
         }        
         
