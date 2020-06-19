@@ -39,7 +39,7 @@ const Query = {
 
         if(args.query) {
             operationArgs.where = {
-                title_contains: args.query
+                text_contains: args.query
             }
         }
 
