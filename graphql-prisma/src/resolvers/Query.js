@@ -1,7 +1,14 @@
 const Query = {
     users(parent, args, { prisma }, info) {
+        const operationArgs = {}
+
+        if(args.query) {
+            operationArgs.where = {
+                name_contains: args.query
+            }
+        }        
         
-        return prisma.query.users(null, info)
+        return prisma.query.users(operationArgs, info)
         
         // if(!args.query) {
         //     return db.users
