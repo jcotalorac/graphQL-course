@@ -34,8 +34,16 @@ const Query = {
         }
         return prisma.query.posts(operationArgs, info)
     },
-    comments(parent, args, { db }, info) {
-        return db.comments
+    comments(parent, args, { prisma }, info) {
+        const operationArgs = {}
+
+        if(args.query) {
+            operationArgs.where = {
+                title_contains: args.query
+            }
+        }
+
+        return prisma.query.comments(operationArgs, info)
     },
     me() {
         return {
