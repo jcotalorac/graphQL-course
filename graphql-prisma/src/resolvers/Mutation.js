@@ -15,13 +15,7 @@ const Mutation = {
         }, info)
     },
     async deleteUser(parent, args, { prisma }, info) {
-        const userExists = await prisma.exists.User({
-            id: args.id
-        })
-
-        if(!userExists) {
-            throw new Error('User not found')
-        }
+        await validateUserExistence(prisma, args)
 
         return await prisma.mutation.deleteUser({
             where: {
@@ -39,28 +33,29 @@ const Mutation = {
         }, info)
     },
     createPost(parent, args, { db, pubsub }, info) {
-        const userExists = db.users.some((user) => user.id === args.data.author)
 
-        if(!userExists) {
-            throw new Error('User not found')
-        }
+        // const userExists = db.users.some((user) => user.id === args.data.author)
 
-        const post = {
-            id: uuidv4(),
-            ...args.data
-        }
+        // if(!userExists) {
+        //     throw new Error('User not found')
+        // }
+
+        // const post = {
+        //     id: uuidv4(),
+        //     ...args.data
+        // }
         
-        db.posts.push(post)
+        // db.posts.push(post)
 
-        if(post.published) {
-            pubsub.publish('post', {
-                post: {
-                    mutation: 'CREATED',
-                    data: post
-                }
-            })
-        }
-        return post
+        // if(post.published) {
+        //     pubsub.publish('post', {
+        //         post: {
+        //             mutation: 'CREATED',
+        //             data: post
+        //         }
+        //     })
+        // }
+        // return post
     },
     deletePost(parent, args, { db, pubsub }, info) {
         const postIndex = db.posts.findIndex((post) => post.id === args.id)
@@ -202,3 +197,13 @@ const Mutation = {
 }
 
 export { Mutation as default }
+
+async function validateUserExistence(prisma, args) {
+    const userExists = await prisma.exists.User({
+        id: args.id
+    })
+
+    if(!userExists) {
+        throw new Error('User not found')
+    }
+}
