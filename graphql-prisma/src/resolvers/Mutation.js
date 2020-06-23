@@ -58,16 +58,13 @@ const Mutation = {
         }
         return post
     },
-    deletePost(parent, args, { db, pubsub }, info) {
-        const postIndex = db.posts.findIndex((post) => post.id === args.id)
+    deletePost(parent, args, { prisma, pubsub }, info) {
 
-        if(postIndex === -1) {
-            throw new Error('Post does not exist')
-        }
-
-        const [ post ] = db.posts.splice(postIndex, 1)
-
-        db.comments = db.comments.filter((comment) => comment.post !== args.id)
+        const post = prisma.mutation.deletePost({
+            where: {
+                id: args.id
+            }
+        }, info)
 
         if(post.published) {
             pubsub.publish('post', {
