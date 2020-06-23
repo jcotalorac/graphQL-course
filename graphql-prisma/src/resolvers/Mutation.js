@@ -33,30 +33,30 @@ const Mutation = {
             data: args.data
         }, info)
     },
-    createPost(parent, args, { db, pubsub }, info) {
+    async createPost(parent, args, { prisma, pubsub }, info) {
+        args.id = args.data.author
+        await validateUserExistence(prisma, args)
 
-        // const userExists = db.users.some((user) => user.id === args.data.author)
-
-        // if(!userExists) {
-        //     throw new Error('User not found')
-        // }
-
-        // const post = {
-        //     id: uuidv4(),
-        //     ...args.data
-        // }
+        const post = await prisma.mutation.createPost({
+            data: {
+                ...args.data,
+                author: {
+                    connect: {
+                        id: args.id
+                    }
+                }
+            }
+        }, info)
         
-        // db.posts.push(post)
-
-        // if(post.published) {
-        //     pubsub.publish('post', {
-        //         post: {
-        //             mutation: 'CREATED',
-        //             data: post
-        //         }
-        //     })
-        // }
-        // return post
+        if(post.published) {
+            pubsub.publish('post', {
+                post: {
+                    mutation: 'CREATED',
+                    data: post
+                }
+            })
+        }
+        return post
     },
     deletePost(parent, args, { db, pubsub }, info) {
         const postIndex = db.posts.findIndex((post) => post.id === args.id)
