@@ -29,33 +29,14 @@ const Mutation = {
             }
         }, info)
     },
-    updateUser(parent, args, { db }, info) {
-        const { id, data } = args
-        const user = db.users.find((user) => user.id === id)
-
-        if(!user) {
-            throw new Error('User not found')
-        }
-
-        if(typeof data.email === 'string') {
-            const emailTaken = db.users.some((user) => user.email === data.email)
-
-            if(emailTaken) {
-                throw new Error('Email already in use')
-            }
-
-            user.email = data.email
-        }
-
-        if(typeof data.name === 'string') {
-            user.name = data.name
-        }
-
-        if(typeof data.age !== 'undefined') {
-            user.age = data.age
-        }
-
-        return user
+    updateUser(parent, args, { prisma }, info) {
+        
+        return prisma.mutation.updateUser({
+            where: {
+                id: args.id
+            },
+            data: args.data
+        }, info)
     },
     createPost(parent, args, { db, pubsub }, info) {
         const userExists = db.users.some((user) => user.id === args.data.author)
