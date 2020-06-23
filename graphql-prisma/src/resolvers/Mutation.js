@@ -14,27 +14,20 @@ const Mutation = {
             data: args.data
         }, info)
     },
-    deleteUser(parent, args, { db }, info) {
-        const userIndex = db.users.findIndex((user) => user.id === args.id)
+    async deleteUser(parent, args, { prisma }, info) {
+        const userExists = await prisma.exists.User({
+            id: args.id
+        })
 
-        if(userIndex === -1) {
+        if(!userExists) {
             throw new Error('User not found')
         }
 
-        const deletedUsers = db.users.splice(userIndex, 1)
-        
-        db.posts = db.posts.filter((post) => {
-            const match = post.author === args.id
-
-            if(match) {
-                db.comments = db.comments.filter((comment) => comment.post !== post.id)
+        return await prisma.mutation.deleteUser({
+            where: {
+                id: args.id
             }
-            return !match
-        })
-
-        db.comments = db.comments.filter((comment) => comment.author !== args.id)
-
-        return deletedUsers[0]
+        }, info)
     },
     updateUser(parent, args, { db }, info) {
         const { id, data } = args
