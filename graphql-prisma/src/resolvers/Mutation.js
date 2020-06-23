@@ -23,7 +23,8 @@ const Mutation = {
             }
         }, info)
     },
-    updateUser(parent, args, { prisma }, info) {
+    async updateUser(parent, args, { prisma }, info) {
+        await validateUserExistence(prisma, args)
         
         return prisma.mutation.updateUser({
             where: {
