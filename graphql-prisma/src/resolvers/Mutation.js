@@ -88,31 +88,23 @@ const Mutation = {
 
         return post
     },
-    createComment(parent, args, { db, pubsub }, info) {
-        const authorExist = db.users.some((user) => user.id === args.data.author)
-
-        if(!authorExist) {
-            throw new Error('The comment author does not exist')
-        }
-
-        const postExists = db.posts.some((post) => post.id === args.data.post && post.published)
-
-        if(!postExists) {
-            throw new Error('Post does not exist or is not published')
-        }
-
-        const comment = {
-            id: uuidv4(),
-            ...args.data
-        }
-
-        db.comments.push(comment)
-        pubsub.publish(`comment ${args.data.post}`, {
-            comment: {
-                mutation: 'CREATED',
-                data: comment
+    createComment(parent, args, { prisma, pubsub }, info) {
+        
+        const comment = prisma.mutation.createComment({
+            data: {
+                ...args.data,
+                author: {
+                    connect: {
+                        id: args.data.author
+                    }
+                },
+                post: {
+                    connect: {
+                        id: args.data.post
+                    }
+                }
             }
-        })
+        }, info)
         
         return comment
     },
