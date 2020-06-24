@@ -126,25 +126,15 @@ const Mutation = {
 
         return deletedComment
     },
-    updateComment(parent, args, { db, pubsub }, info) {
+    updateComment(parent, args, { prisma, pubsub }, info) {
         const { id, data } = args
 
-        const comment = db.comments.find((comment) => comment.id === args.id)
-
-        if(!comment) {
-            throw new Error('Comment does not exist')
-        }
-
-        if(typeof data.text === 'string') {
-            comment.text = data.text
-        }
-
-        pubsub.publish(`comment ${comment.post}`, {
-            comment: {
-                mutation: 'UPDATED',
-                data: comment
+        const comment = prisma.mutation.updateComment({
+            data,
+            where: {
+                id
             }
-        })
+        }, info)
 
         return comment
     }
