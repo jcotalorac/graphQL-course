@@ -88,7 +88,7 @@ const Mutation = {
 
         return post
     },
-    createComment(parent, args, { prisma, pubsub }, info) {
+    createComment(parent, args, { prisma }, info) {
         
         const comment = prisma.mutation.createComment({
             data: {
@@ -108,7 +108,7 @@ const Mutation = {
         
         return comment
     },
-    deleteComment(parent, args, { prisma, pubsub }, info) {
+    deleteComment(parent, args, { prisma }, info) {
         const comment = prisma.mutation.deleteComment({
             where: {
                 id: args.id
@@ -117,7 +117,7 @@ const Mutation = {
 
         return comment
     },
-    updateComment(parent, args, { prisma, pubsub }, info) {
+    updateComment(parent, args, { prisma }, info) {
         const { id, data } = args
 
         const comment = prisma.mutation.updateComment({
