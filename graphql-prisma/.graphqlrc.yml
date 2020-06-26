@@ -1,6 +1,6 @@
 projects:
     prisma:
-        schema: http://localhost:4466/
+        schema: prisma/prisma.yml
         extensions:
             endpoints:
                 default: http://localhost:4466/
