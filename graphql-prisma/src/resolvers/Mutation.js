@@ -10,6 +10,10 @@ const Mutation = {
             throw new Error('Email already exists')
         }
 
+        if(args.data.password.lenght < 7) {
+            throw new Error('Password must be 8 characters or longer')
+        }
+
         return await prisma.mutation.createUser({
             data: args.data
         }, info)
