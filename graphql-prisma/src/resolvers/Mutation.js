@@ -11,7 +11,7 @@ const Mutation = {
             throw new Error('Email already exists')
         }
 
-        if(args.data.password.length < 7) {
+        if(args.data.password.length < 8) {
             throw new Error('Password must be 8 characters or longer')
         }
         const password = await bcrypt.hash(args.data.password, 10)
