@@ -17,6 +17,7 @@
     "braces": "^2.3.2",
     "graphql-cli": "^4.0.0",
     "graphql-yoga": "^1.18.3",
+    "jsonwebtoken": "^8.5.1",
     "prisma-binding": "^2.3.16",
     "uuid": "^8.1.0"
   },
