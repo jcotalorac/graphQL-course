@@ -149,14 +149,16 @@ const Mutation = {
 
         return post
     },
-    createComment(parent, args, { prisma }, info) {
+    createComment(parent, args, { prisma, request }, info) {
+
+        const userId = getUserId(request)
         
         const comment = prisma.mutation.createComment({
             data: {
                 ...args.data,
                 author: {
                     connect: {
-                        id: args.data.author
+                        id: userId
                     }
                 },
                 post: {
