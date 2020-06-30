@@ -126,9 +126,21 @@ const Mutation = {
 
         return post
     },
-    updatePost(parent, args, { prisma, pubsub }, info) {
+    async updatePost(parent, args, { prisma, request }, info) {
+        const userId = getUserId(request)
+        const postExists = await prisma.exists.Post({
+            id: args.id,
+            author: {
+                id: userId
+            }
+        })
+
+        if(!postExists) {
+            throw new Error('Author-post does not exist')
+        }
+
         const { id, data } = args
-        const post = prisma.mutation.updatePost({
+        const post = await prisma.mutation.updatePost({
             where: {
                 id
             },
