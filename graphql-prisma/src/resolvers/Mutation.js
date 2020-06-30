@@ -171,8 +171,21 @@ const Mutation = {
         
         return comment
     },
-    deleteComment(parent, args, { prisma }, info) {
-        const comment = prisma.mutation.deleteComment({
+    async deleteComment(parent, args, { prisma, request }, info) {
+        const userId = getUserId(request)
+
+        const commentExist = await prisma.exists.Comment({
+            id: args.id,
+            author: {
+                id: userId
+            }
+        })
+
+        if(!commentExist) {
+            throw new Error('Author-comment does not exist')
+        }
+
+        const comment = await prisma.mutation.deleteComment({
             where: {
                 id: args.id
             }
