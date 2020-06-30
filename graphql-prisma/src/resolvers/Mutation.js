@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from 'uuid'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
+import getUserId from '../utils/getUserId'
 
 const Mutation = {
     async createUser(parent, args, { prisma }, info) {
@@ -71,16 +72,15 @@ const Mutation = {
             data: args.data
         }, info)
     },
-    async createPost(parent, args, { prisma, pubsub }, info) {
-        args.id = args.data.author
-        await validateUserExistence(prisma, args)
-
+    async createPost(parent, args, { prisma, pubsub, request }, info) {
+        const userId = getUserId(request)
+        
         const post = await prisma.mutation.createPost({
             data: {
                 ...args.data,
                 author: {
                     connect: {
-                        id: args.id
+                        id: userId
                     }
                 }
             }
