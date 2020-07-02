@@ -1,3 +1,5 @@
+import getUserId from '../utils/getUserId'
+
 const Query = {
     users(parent, args, { prisma }, info) {
         const operationArgs = {}
@@ -53,7 +55,8 @@ const Query = {
             age: 28
         }
     },
-    post() {
+    post(parent, args, { prisma, request }, info) {
+        const userId = getUserId(request)
         return {
             id: 'asdqw12',
             title: 'Post title',
