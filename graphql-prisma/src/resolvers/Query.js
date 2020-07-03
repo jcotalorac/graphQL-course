@@ -55,14 +55,31 @@ const Query = {
             age: 28
         }
     },
-    post(parent, args, { prisma, request }, info) {
-        const userId = getUserId(request)
-        return {
-            id: 'asdqw12',
-            title: 'Post title',
-            body: 'Post body',
-            published: false
+    async post(parent, args, { prisma, request }, info) {
+        const userId = getUserId(request, false)
+        
+        const posts = await prisma.query.posts({
+            where: {
+                id: args.id,
+                OR: [
+                    {
+                        published: true
+                    },
+                    {
+                        author: {
+                            id: userId
+                        }
+                    }
+                ]
+            }
+        }, info)
+        
+        
+        if(posts.length === 0) {
+            throw new Error('Post not found')
         }
+
+        return posts[0]
     }
 }
 
