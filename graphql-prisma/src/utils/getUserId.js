@@ -11,7 +11,11 @@ const getUserId = (request, requiredAuth = true) => {
         return decoded.userId
     }
     
-    throw new Error('Authentication required')
+    if(requiredAuth) {
+        throw new Error('Authentication required')
+    }
+
+    return null
 }
 
 export { getUserId as default }
