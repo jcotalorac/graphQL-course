@@ -19,6 +19,30 @@ const Query = {
         
         return prisma.query.users(operationArgs, info)
     },
+    myPosts(parent, args, { prisma, request }, info) {
+        const userId = getUserId(request)
+
+        const operationArgs = {
+            where: {
+                author: {
+                    id: userId
+                }
+            }
+        }
+
+        if(args.query) {
+            operationArgs.where.OR = [
+                {
+                    title_contains: args.query
+                },
+                {
+                    body_contains: args.query
+                }
+            ]
+        }
+
+        return prisma.query.posts(operationArgs, info)
+    },
     posts(parent, args, { prisma }, info) {
         const operationArgs = {
             where: {
