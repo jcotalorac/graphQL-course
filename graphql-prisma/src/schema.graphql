@@ -48,6 +48,7 @@ input UpdateUserInput {
     name: String
     email: String
     age: Int
+    password: String
 }
 
 input CreatePostInput {
