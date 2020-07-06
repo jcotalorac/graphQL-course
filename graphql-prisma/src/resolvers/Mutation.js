@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid'
 import bcrypt from 'bcryptjs'
-import jwt from 'jsonwebtoken'
+import generateToken from '../utils/generateToken'
 import getUserId from '../utils/getUserId'
 
 const Mutation = {
@@ -27,7 +27,7 @@ const Mutation = {
 
         return {
             user,
-            token: jwt.sign({ userId: user.id }, 'thisisasecret')
+            token: generateToken(user)
         }
     },
     async loginUser(parent, args, { prisma }, info) {
@@ -50,7 +50,7 @@ const Mutation = {
 
         return {
             user,
-            token: jwt.sign({ userId: user.id }, 'thisisasecret')
+            token: generateToken(user)
         }
     },
     async deleteUser(parent, args, { prisma, request }, info) {
