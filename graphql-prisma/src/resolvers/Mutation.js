@@ -138,15 +138,29 @@ const Mutation = {
         if(!postExists) {
             throw new Error('Author-post does not exist')
         }
-
+        
         const { id, data } = args
+        const postPublished = await prisma.exists.Post({
+            id,
+            published: true
+        })
+
         const post = await prisma.mutation.updatePost({
             where: {
                 id
             },
             data
         }, info)
-
+        
+        if(postPublished && !data.published) {
+            await prisma.mutation.deleteManyComments({
+                where: {
+                    post: {
+                        id
+                    }
+                }
+            })
+        }
         return post
     },
     async createComment(parent, args, { prisma, request }, info) {
