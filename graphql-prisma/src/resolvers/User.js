@@ -2,7 +2,7 @@ import getUserId from '../utils/getUserId'
 
 const User = {
     email: {
-    	fragment: 'fragment on User { id }',
+    	fragment: 'fragment userEmail on User { id }',
     	resolve(parent, args, { request }, info) {
     		const userId = getUserId(request, false)
 

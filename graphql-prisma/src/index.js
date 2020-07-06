@@ -1,6 +1,6 @@
 import { GraphQLServer, PubSub } from 'graphql-yoga'
 import db from './db'
-import resolvers from './resolvers/resolver'
+import { resolvers } from './resolvers/resolver'
 import prisma from './prisma'
 
 const pubsub = new PubSub();
