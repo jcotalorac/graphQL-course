@@ -27,7 +27,7 @@ const Mutation = {
 
         return {
             user,
-            token: generateToken(user)
+            token: generateToken(user.id)
         }
     },
     async loginUser(parent, args, { prisma }, info) {
@@ -50,7 +50,7 @@ const Mutation = {
 
         return {
             user,
-            token: generateToken(user)
+            token: generateToken(user.id)
         }
     },
     async deleteUser(parent, args, { prisma, request }, info) {
