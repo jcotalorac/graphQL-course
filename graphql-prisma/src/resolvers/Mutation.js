@@ -149,11 +149,20 @@ const Mutation = {
 
         return post
     },
-    createComment(parent, args, { prisma, request }, info) {
+    async createComment(parent, args, { prisma, request }, info) {
 
         const userId = getUserId(request)
+
+        const postExists = await prisma.exists.Post({
+            id: args.data.post,
+            published: true
+        })
+
+        if(!postExists) {
+            throw new Error('Post published-id does not exist')
+        }
         
-        const comment = prisma.mutation.createComment({
+        const comment = await prisma.mutation.createComment({
             data: {
                 ...args.data,
                 author: {
@@ -221,13 +230,3 @@ const Mutation = {
 }
 
 export { Mutation as default }
-
-async function validateUserExistence(prisma, args) {
-    const userExists = await prisma.exists.User({
-        id: args.id
-    })
-
-    if(!userExists) {
-        throw new Error('User not found')
-    }
-}
