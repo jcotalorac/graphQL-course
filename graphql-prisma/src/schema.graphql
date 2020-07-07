@@ -91,6 +91,8 @@ type Post {
     published: Boolean!
     author: User!
     comments: [Comment!]!
+    updatedAt: String!
+    createdAt: String!
 }
 
 type Comment {
