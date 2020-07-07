@@ -70,7 +70,11 @@ const Query = {
         return prisma.query.posts(operationArgs, info)
     },
     comments(parent, args, { prisma }, info) {
-        const operationArgs = {}
+        const operationArgs = {
+            first: args.first,
+            skip: args.skip,
+            after: args.after
+        }
 
         if(args.query) {
             operationArgs.where = {
