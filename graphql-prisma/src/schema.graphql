@@ -80,6 +80,8 @@ type User {
     age: Int
     posts: [Post!]!
     comments: [Comment!]!
+    updatedAt: String!
+    createdAt: String!
 }
 
 type Post {
