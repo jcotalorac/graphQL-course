@@ -6,7 +6,7 @@ type User {
   posts: [Post!]! @relation(name: "PostToUser", onDelete: CASCADE)
   comments: [Comment!]! @relation(name: "CommentToUser", onDelete: CASCADE)
   updatedAt: DateTime! @updatedAt
-  createrAt: DateTime! @createdAt
+  createdAt: DateTime! @createdAt
 }
 
 type Post {
