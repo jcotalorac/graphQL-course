@@ -1,5 +1,7 @@
 "use strict";
 
+require("@babel/polyfill");
+
 var _graphqlYoga = require("graphql-yoga");
 
 var _db = _interopRequireDefault(require("./db"));
