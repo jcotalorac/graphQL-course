@@ -1,4 +1,3 @@
-#endpoint: ${env:PRISMA_ENDPOINT}
-endpoint: https://otalora-blog-app-fd02a76a0c.herokuapp.com/juan-otalora-blogging-app/prod
+endpoint: ${env:PRISMA_ENDPOINT}
 datamodel: datamodel.prisma
 secret: thisismysupersecrettext
