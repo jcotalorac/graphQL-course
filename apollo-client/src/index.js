@@ -12,3 +12,6 @@ const getUsers = gql`
         }
     }
 `
+client.query({
+    query: getUsers
+})
