@@ -1,0 +1,11 @@
+{
+  "name": "apollo-client",
+  "version": "1.0.0",
+  "description": "Apollo client",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Juan Otalora",
+  "license": "ISC"
+}
