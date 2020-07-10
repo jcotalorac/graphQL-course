@@ -28,3 +28,14 @@ client.query({
 
     document.getElementById('users').innerHTML = html
 })
+
+const getPosts = gql`
+    query {
+        posts {
+            title
+            author {
+                name
+            }
+        }
+    }
+`
