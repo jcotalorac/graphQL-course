@@ -35,6 +35,7 @@
     "@babel/preset-env": "^7.9.6",
     "@graphql-cli/codegen": "^1.15.3",
     "@graphql-codegen/schema-ast": "^1.15.3",
+    "apollo-boost": "^0.4.9",
     "apollo-server-core": "^2.14.3",
     "apollo-server-express": "^2.14.3",
     "apollo-server-lambda": "^2.14.3",
