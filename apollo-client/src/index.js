@@ -15,3 +15,6 @@ const getUsers = gql`
 client.query({
     query: getUsers
 })
+.then((response) => {
+    console.log(response.data);
+})
