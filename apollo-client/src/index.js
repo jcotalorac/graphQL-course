@@ -16,5 +16,15 @@ client.query({
     query: getUsers
 })
 .then((response) => {
-    console.log(response.data);
+    let html = ``
+
+    response.data.users.forEach(user => {
+        html += `
+            <div>
+                <h3>${user.name}</h3>
+            </div>
+        `
+    });
+
+    document.getElementById('users').innerHTML = html
 })
