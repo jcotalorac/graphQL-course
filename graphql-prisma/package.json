@@ -10,6 +10,10 @@
     "test": "jest --watch",
     "get-schema": "graphql codegen --project prisma"
   },
+  "jest": {
+    "globalSetup": "./tests/jest/globalSetup.js",
+    "globalTeardown": "./tests/jest/globalTeardown.js"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
