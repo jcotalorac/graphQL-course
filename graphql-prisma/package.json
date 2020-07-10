@@ -19,7 +19,6 @@
     "bcryptjs": "^2.4.3",
     "braces": "^2.3.2",
     "env-cmd": "^10.1.0",
-    "graphql-cli": "^4.0.0",
     "graphql-yoga": "^1.18.3",
     "jsonwebtoken": "^8.5.1",
     "prisma-binding": "^2.3.16",
@@ -35,6 +34,7 @@
     "apollo-server-core": "^2.14.3",
     "apollo-server-express": "^2.14.3",
     "apollo-server-lambda": "^2.14.3",
+    "graphql-cli": "^4.0.0",
     "graphql-playground-html": "^1.6.25",
     "nodemon": "^2.0.4"
   }
