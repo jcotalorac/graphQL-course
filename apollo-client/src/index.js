@@ -39,3 +39,21 @@ const getPosts = gql`
         }
     }
 `
+
+client.query({
+    query: getPosts
+})
+.then((response) => {
+    let html = ``
+
+    response.data.posts.forEach(post => {
+        html += `
+            <div>
+                <h3>${post.title}</h3>
+                <h4>${post.author.name}</h4>
+            </div>
+        `
+    })
+
+    document.getElementById('posts').innerHTML = html
+})
