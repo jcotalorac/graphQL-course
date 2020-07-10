@@ -7,7 +7,7 @@
     "start": "./node_modules/.bin/env-cmd -f ./config/prod.env node dist/index.js",
     "heroku-postbuild": "babel src --out-dir dist --copy-files",
     "dev": "./node_modules/.bin/env-cmd -f ./config/dev.env nodemon src/index.js --ext js,graphql --exec babel-node",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "get-schema": "graphql codegen --project prisma"
   },
   "author": "",
