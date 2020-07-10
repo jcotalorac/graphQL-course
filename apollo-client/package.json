@@ -4,7 +4,8 @@
   "description": "Apollo client",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "parcel src/index.html"
   },
   "author": "Juan Otalora",
   "license": "ISC",
