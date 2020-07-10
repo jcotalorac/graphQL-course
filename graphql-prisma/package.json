@@ -38,6 +38,7 @@
     "apollo-server-core": "^2.14.3",
     "apollo-server-express": "^2.14.3",
     "apollo-server-lambda": "^2.14.3",
+    "babel-register": "^6.26.0",
     "graphql-cli": "^4.0.0",
     "graphql-playground-html": "^1.6.25",
     "jest": "^26.1.0",
