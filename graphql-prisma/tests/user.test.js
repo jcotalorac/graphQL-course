@@ -50,8 +50,8 @@ test('Should create a new user', async () => {
         mutation {
             createUser (
                 data: {
-                    name: "user",
-                    email: "mail@mail.com",
+                    name: "user"
+                    email: "mail@mail.com"
                     password: "12345678"
                 }
             ) {
