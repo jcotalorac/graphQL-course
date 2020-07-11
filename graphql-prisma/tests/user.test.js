@@ -1,6 +1,7 @@
 import 'cross-fetch/polyfill'
 import '@babel/polyfill'
 import ApolloBoost, { gql } from 'apollo-boost'
+import prisma from '../src/prisma'
 
 const client = new ApolloBoost({
     uri: "http://localhost:4000"
@@ -27,5 +28,10 @@ test('Should create a new user', async () => {
     const response = await client.mutate({
         mutation: createUser
     })
-    console.log(response);
+
+    const userExist = await prisma.exists.User({
+        id: response.data.createUser.id
+    })
+
+    expect(userExist).toBe(true)
 })
