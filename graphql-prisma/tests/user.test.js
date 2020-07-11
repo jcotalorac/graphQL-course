@@ -2,48 +2,13 @@ import 'cross-fetch/polyfill'
 import '@babel/polyfill'
 import ApolloBoost, { gql } from 'apollo-boost'
 import prisma from '../src/prisma'
-import bcrypt from 'bcryptjs'
+import seedDatabase from './utils/seedDatabase'
 
 const client = new ApolloBoost({
     uri: "http://localhost:4000"
 })
 
-beforeEach(async () => {
-    await prisma.mutation.deleteManyUsers()
-    const user = await prisma.mutation.createUser({
-        data: {
-            name: "name",
-            email: "name@mail.com",
-            password: bcrypt.hashSync("87654321")
-        }
-    })
-
-    await prisma.mutation.createPost({
-        data: {
-            title: "Published post",
-            body: "Body published",
-            published: true,
-            author: {
-                connect: {
-                    id: user.id
-                }
-            }
-        }
-    })
-
-    await prisma.mutation.createPost({
-        data: {
-            title: "Unpublished post",
-            body: "Body unpublished",
-            published: false,
-            author: {
-                connect: {
-                    id: user.id
-                }
-            }
-        }
-    })
-})
+beforeEach(seedDatabase)
 
 test('Should create a new user', async () => {
     const createUser = gql`
