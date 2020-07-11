@@ -1,14 +1,18 @@
 import bcrypt from 'bcryptjs'
 import prisma from '../../src/prisma'
 
+const userOne = {
+    input: {
+        name: "name",
+        email: "name@mail.com",
+        password: bcrypt.hashSync("87654321")
+    }
+}
+
 const seedDatabase = async () => {
     await prisma.mutation.deleteManyUsers()
     const user = await prisma.mutation.createUser({
-        data: {
-            name: "name",
-            email: "name@mail.com",
-            password: bcrypt.hashSync("87654321")
-        }
+        data: userOne.input
     })
 
     await prisma.mutation.createPost({
