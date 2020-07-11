@@ -115,7 +115,23 @@ test('Should expose published posts', async () => {
 })
 
 test('Should not login with bad credentials', async () => {
-    expect(() => {
-        throw new Error()
-    }).toThrow()
+    const login = gql`
+        mutation {
+            loginUser(
+                data: {
+                    email: "name@mail.com"
+                    password: "12345678"
+                }
+            ) {
+                token
+            }
+        }
+    `
+
+    await expect(
+        client.mutate({
+            mutation: login
+        })
+    ).rejects.toThrow()
+    
 })
