@@ -113,3 +113,6 @@ test('Should expose published posts', async () => {
     expect(response.data.posts.length).toBe(1)
     expect(response.data.posts[0].published).toBe(true)
 })
+
+test('Should not login with bad credentials', async () => {
+})
