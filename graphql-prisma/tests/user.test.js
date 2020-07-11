@@ -115,5 +115,7 @@ test('Should expose published posts', async () => {
 })
 
 test('Should not login with bad credentials', async () => {
-    expect(() => {}).toThrow()
+    expect(() => {
+        throw new Error()
+    }).toThrow()
 })
