@@ -123,3 +123,22 @@ test('Should fetch user profile', async () => {
     expect(data.me.name).toBe(userOne.input.name)
     expect(data.me.email).toBe(userOne.input.email)
 })
+
+test('Should throw auth error when profile is not authenticated', async () => {
+
+    const me = gql`
+        query {
+            me {
+                id
+                name
+                email
+            }
+        }
+    `
+
+    await expect(
+        client.query({
+            query: me
+        })
+    ).rejects.toThrow()
+})
