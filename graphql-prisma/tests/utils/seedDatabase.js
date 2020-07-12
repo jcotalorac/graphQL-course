@@ -86,6 +86,22 @@ const seedDatabase = async () => {
         data: userTwo.input
     })
     userTwo.jwt = await generateToken(userTwo.user.id)
+
+    userTwo.comments.push(await prisma.mutation.createComment({
+        data: {
+            text: "Comment userTwo",
+            author: {
+                connect: {
+                    id: userTwo.user.id
+                }
+            },
+            post: {
+                connect: {
+                    id: userOne.posts[0].id
+                }
+            }
+        }
+    }))
 }
 
 export { seedDatabase as default , userOne }
