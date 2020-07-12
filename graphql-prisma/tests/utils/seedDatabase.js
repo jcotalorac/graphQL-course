@@ -10,10 +10,11 @@ const userOne = {
     },
     user: undefined,
     jwt: undefined,
-    posts: []
+    posts: undefined
 }
 
 const seedDatabase = async () => {
+    userOne.posts = []
     await prisma.mutation.deleteManyUsers()
     userOne.user = await prisma.mutation.createUser({
         data: userOne.input
