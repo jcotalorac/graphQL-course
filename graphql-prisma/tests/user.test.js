@@ -23,13 +23,21 @@ const createUser = gql`
         }
     }
 `
-
 const getUsers = gql`
     query {
         users {
             id
             name
             email
+        }
+    }
+`
+const login = gql`
+    mutation($data: LoginUserInput!) {
+        loginUser(
+            data: $data
+        ) {
+            token
         }
     }
 `
@@ -66,22 +74,17 @@ test('Should expose public author profiles', async () => {
 })
 
 test('Should not login with bad credentials', async () => {
-    const login = gql`
-        mutation {
-            loginUser(
-                data: {
-                    email: "name@mail.com"
-                    password: "12345678"
-                }
-            ) {
-                token
-            }
+    const variables = {
+        data: {
+            email: "name@mail.com",
+            password: "12345678"
         }
-    `
+    }
 
     await expect(
         client.mutate({
-            mutation: login
+            mutation: login,
+            variables
         })
     ).rejects.toThrow()
     
