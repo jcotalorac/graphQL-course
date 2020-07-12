@@ -47,3 +47,32 @@ test('Should show owned posts', async () => {
 
     expect(data.myPosts.length).toBe(userOne.posts.length)
 })
+
+test('Should be able to update own post', async () => {
+    const client = getClient(userOne.jwt)
+    const bodyUpdatedValue = "A new body updated"
+
+    const updatePost = gql`
+        mutation {
+            updatePost(
+                id: "${userOne.posts[0].id}"
+                data: {
+                    body: "${bodyUpdatedValue}"
+                    published: false
+                }
+            ) {
+                id
+                title
+                body
+                published
+            }
+        }
+    `
+    
+    const { data } = await client.mutate({
+        mutation: updatePost
+    })
+
+    expect(data.updatePost.body).toBe(bodyUpdatedValue)
+    expect(data.updatePost.published).toBe(false)
+})
