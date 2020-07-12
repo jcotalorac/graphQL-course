@@ -10,7 +10,8 @@ const userOne = {
     },
     user: undefined,
     jwt: undefined,
-    posts: undefined
+    posts: undefined,
+    comments: undefined
 }
 
 const userTwo = {
@@ -21,12 +22,16 @@ const userTwo = {
     },
     user: undefined,
     jwt: undefined,
-    posts: undefined
+    posts: undefined,
+    comments: undefined
 }
 
 const seedDatabase = async () => {
     userOne.posts = []
     userTwo.posts = []
+
+    userOne.comments = []
+    userTwo.comments = []
     
     await prisma.mutation.deleteManyUsers()
 
@@ -56,6 +61,22 @@ const seedDatabase = async () => {
             author: {
                 connect: {
                     id: userOne.user.id
+                }
+            }
+        }
+    }))
+
+    userOne.comments.push(await prisma.mutation.createComment({
+        data: {
+            text: "Comment userOne",
+            author: {
+                connect: {
+                    id: userOne.user.id
+                }
+            },
+            post: {
+                connect: {
+                    id: userOne.posts[0].id
                 }
             }
         }
