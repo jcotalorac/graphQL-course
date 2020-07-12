@@ -114,7 +114,13 @@ test('Should create a new post', async () => {
         mutation: createPost
     })
 
+    const existsPost = await prisma.exists.Post({
+        id: data.createPost.id,
+        ...input
+    })
+
     expect(data.createPost.title).toBe(input.title)
     expect(data.createPost.body).toBe(input.body)
     expect(data.createPost.published).toBe(input.published)
+    expect(existsPost).toBe(true)
 })
