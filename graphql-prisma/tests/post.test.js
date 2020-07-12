@@ -4,23 +4,13 @@ import { gql } from 'apollo-boost'
 import seedDatabase, { userOne } from './utils/seedDatabase'
 import getClient from './utils/getClient'
 import prisma from '../src/prisma'
+import { getPosts, myPosts, updatePost, createPost, deletePost } from './utils/operations'
 
 const client = getClient()
 
 beforeEach(seedDatabase)
 
 test('Should expose published posts', async () => {
-    const getPosts = gql`
-        query {
-            posts {
-                id
-                title
-                body
-                published
-            }
-        }
-    `
-
     const response = await client.query({
         query: getPosts
     })
@@ -31,16 +21,6 @@ test('Should expose published posts', async () => {
 
 test('Should show owned posts', async () => {
     const client = getClient(userOne.jwt)
-
-    const myPosts = gql`
-        query {
-            myPosts {
-                id
-                title
-                published
-            }
-        }
-    `
 
     const { data } = await client.query({
         query: myPosts
@@ -53,25 +33,17 @@ test('Should be able to update own post', async () => {
     const client = getClient(userOne.jwt)
     const bodyUpdatedValue = "A new body updated"
 
-    const updatePost = gql`
-        mutation {
-            updatePost(
-                id: "${userOne.posts[0].id}"
-                data: {
-                    body: "${bodyUpdatedValue}"
-                    published: false
-                }
-            ) {
-                id
-                title
-                body
-                published
-            }
+    const variables = {
+        id: userOne.posts[0].id,
+        data: {
+            body: bodyUpdatedValue,
+            published: false
         }
-    `
+    }
     
     const { data } = await client.mutate({
-        mutation: updatePost
+        mutation: updatePost,
+        variables
     })
 
     const postExists = await prisma.exists.Post({
@@ -93,25 +65,13 @@ test('Should create a new post', async () => {
         published: false
     }
 
-    const createPost = gql`
-        mutation {
-            createPost(
-                data: {
-                    title: "${input.title}"
-                    body: "${input.body}"
-                    published: ${input.published}
-                }
-            ) {
-                id
-                title
-                body
-                published
-            }
-        }
-    `
+    const variables = {
+        data: input
+    }
 
     const { data } = await client.mutate({
-        mutation: createPost
+        mutation: createPost,
+        variables
     })
 
     const existsPost = await prisma.exists.Post({
@@ -128,19 +88,13 @@ test('Should create a new post', async () => {
 test('Should delete a post', async () => {
     const client = getClient(userOne.jwt)
 
-    const deletePost = gql`
-        mutation {
-            deletePost(
-                id: "${userOne.posts[1].id}"
-            ) {
-                id
-                title
-                published
-            }
-        }
-    `
+    const variables = {
+        id: userOne.posts[1].id
+    }
+
     const { data } = await client.mutate({
-        mutation: deletePost
+        mutation: deletePost,
+        variables
     })
 
     const existsPost = await prisma.exists.Post({
