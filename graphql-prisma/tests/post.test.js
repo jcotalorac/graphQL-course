@@ -3,6 +3,7 @@ import '@babel/polyfill'
 import { gql } from 'apollo-boost'
 import seedDatabase, { userOne } from './utils/seedDatabase'
 import getClient from './utils/getClient'
+import prisma from '../src/prisma'
 
 const client = getClient()
 
@@ -73,6 +74,13 @@ test('Should be able to update own post', async () => {
         mutation: updatePost
     })
 
+    const postExists = await prisma.exists.Post({
+        id: userOne.posts[0].id,
+        body: bodyUpdatedValue,
+        published: false
+    })
+
     expect(data.updatePost.body).toBe(bodyUpdatedValue)
     expect(data.updatePost.published).toBe(false)
+    expect(postExists).toBe(true)
 })
