@@ -1,5 +1,6 @@
 import bcrypt from 'bcryptjs'
 import prisma from '../../src/prisma'
+import generateToken from '../../src/utils/generateToken'
 
 const userOne = {
     input: {
@@ -7,7 +8,8 @@ const userOne = {
         email: "name@mail.com",
         password: bcrypt.hashSync("87654321")
     },
-    user: undefined
+    user: undefined,
+    jwt: undefined
 }
 
 const seedDatabase = async () => {
@@ -15,6 +17,7 @@ const seedDatabase = async () => {
     userOne.user = await prisma.mutation.createUser({
         data: userOne.input
     })
+    userOne.jwt = generateToken(userOne.user.id)
 
     await prisma.mutation.createPost({
         data: {
@@ -43,4 +46,4 @@ const seedDatabase = async () => {
     })
 }
 
-export { seedDatabase as default }
+export { seedDatabase as default , userOne }
