@@ -59,7 +59,7 @@ test('Should not login with bad credentials', async () => {
     
 })
 
-test('Should not sign up with short password', async () => {
+test('Should not sign up with invalid password', async () => {
     const variables = {
         data: {
             name: "anyname",
