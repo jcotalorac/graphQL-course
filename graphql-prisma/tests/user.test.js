@@ -9,26 +9,33 @@ const client = getClient()
 
 beforeEach(seedDatabase)
 
-test('Should create a new user', async () => {
-    const createUser = gql`
-        mutation {
-            createUser (
-                data: {
-                    name: "user"
-                    email: "mail@mail.com"
-                    password: "12345678"
-                }
-            ) {
-                token
-                user {
-                    id
-                }
+const createUser = gql`
+    mutation($data: CreateUserInput!) {
+        createUser (
+            data: $data
+        ) {
+            token
+            user {
+                id
+                name
+                email
             }
         }
-    `
+    }
+`
 
+test('Should create a new user', async () => {
+    const variables = {
+        data: {
+            name: "user",
+            email: "mail@mail.com",
+            password: "12345678"
+        }
+    }
+    
     const response = await client.mutate({
-        mutation: createUser
+        mutation: createUser,
+        variables
     })
 
     const userExist = await prisma.exists.User({
@@ -81,23 +88,18 @@ test('Should not login with bad credentials', async () => {
 })
 
 test('Should not sign up with short password', async () => {
-    const createUser = gql`
-        mutation {
-            createUser(
-                data: {
-                    name: "anyname"
-                    email: "anymail"
-                    password: "123"
-                }
-            ) {
-                token
-            }
+    const variables = {
+        data: {
+            name: "anyname",
+            email: "anymail",
+            password: "123"
         }
-    `
+    }
 
     await expect(
         client.mutate({
-            mutation: createUser
+            mutation: createUser,
+            variables
         })
     ).rejects.toThrow()
 })
