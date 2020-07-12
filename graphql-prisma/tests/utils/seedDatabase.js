@@ -17,7 +17,7 @@ const seedDatabase = async () => {
     userOne.user = await prisma.mutation.createUser({
         data: userOne.input
     })
-    userOne.jwt = generateToken(userOne.user.id)
+    userOne.jwt = await generateToken(userOne.user.id)
 
     await prisma.mutation.createPost({
         data: {

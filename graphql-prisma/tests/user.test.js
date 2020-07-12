@@ -103,7 +103,7 @@ test('Should not sign up with short password', async () => {
 })
 
 test('Should fetch user profile', async () => {
-    const client = getClient(await userOne.jwt)
+    const client = getClient(userOne.jwt)
 
     const me = gql`
         query {
