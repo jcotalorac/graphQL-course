@@ -104,4 +104,4 @@ const seedDatabase = async () => {
     }))
 }
 
-export { seedDatabase as default , userOne }
+export { seedDatabase as default , userOne, userTwo }
