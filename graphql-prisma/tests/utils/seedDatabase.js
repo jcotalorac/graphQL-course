@@ -13,9 +13,23 @@ const userOne = {
     posts: undefined
 }
 
+const userTwo = {
+    input: {
+        name: "user2",
+        email: "mail2@mail.com",
+        password: bcrypt.hashSync("12345678")
+    },
+    user: undefined,
+    jwt: undefined,
+    posts: undefined
+}
+
 const seedDatabase = async () => {
     userOne.posts = []
+    userTwo.posts = []
+    
     await prisma.mutation.deleteManyUsers()
+
     userOne.user = await prisma.mutation.createUser({
         data: userOne.input
     })
@@ -46,6 +60,11 @@ const seedDatabase = async () => {
             }
         }
     }))
+
+    userTwo.user = await prisma.mutation.createUser({
+        data: userTwo.input
+    })
+    userTwo.jwt = await generateToken(userTwo.user.id)
 }
 
 export { seedDatabase as default , userOne }

@@ -35,7 +35,9 @@ test('Should expose public author profiles', async () => {
         query: getUsers
     })
 
-    expect(response.data.users.length).toBe(1)
+    const savedUsers = await prisma.query.users()
+
+    expect(response.data.users.length).toBe(savedUsers.length)
     expect(response.data.users[0].email).toBe(null)
     expect(response.data.users[0].name).toBe('name')
 })
