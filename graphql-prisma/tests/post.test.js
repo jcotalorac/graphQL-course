@@ -84,3 +84,37 @@ test('Should be able to update own post', async () => {
     expect(data.updatePost.published).toBe(false)
     expect(postExists).toBe(true)
 })
+
+test('Should create a new post', async () => {
+    const client = getClient(userOne.jwt)
+    const input = {
+        title: "Title post",
+        body: "Body post",
+        published: false
+    }
+
+    const createPost = gql`
+        mutation {
+            createPost(
+                data: {
+                    title: "${input.title}"
+                    body: "${input.body}"
+                    published: ${input.published}
+                }
+            ) {
+                id
+                title
+                body
+                published
+            }
+        }
+    `
+
+    const { data } = await client.mutate({
+        mutation: createPost
+    })
+
+    expect(data.createPost.title).toBe(input.title)
+    expect(data.createPost.body).toBe(input.body)
+    expect(data.createPost.published).toBe(input.published)
+})
