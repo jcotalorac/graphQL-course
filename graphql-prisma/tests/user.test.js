@@ -1,56 +1,13 @@
 import 'cross-fetch/polyfill'
 import '@babel/polyfill'
-import { gql } from 'apollo-boost'
 import prisma from '../src/prisma'
 import seedDatabase, { userOne } from './utils/seedDatabase'
 import getClient from './utils/getClient'
+import { createUser, getUsers, login, me } from './utils/operations'
 
 const client = getClient()
 
 beforeEach(seedDatabase)
-
-const createUser = gql`
-    mutation($data: CreateUserInput!) {
-        createUser (
-            data: $data
-        ) {
-            token
-            user {
-                id
-                name
-                email
-            }
-        }
-    }
-`
-const getUsers = gql`
-    query {
-        users {
-            id
-            name
-            email
-        }
-    }
-`
-const login = gql`
-    mutation($data: LoginUserInput!) {
-        loginUser(
-            data: $data
-        ) {
-            token
-        }
-    }
-`
-
-const me = gql`
-    query {
-        me {
-            id
-            name
-            email
-        }
-    }
-`
 
 test('Should create a new user', async () => {
     const variables = {
