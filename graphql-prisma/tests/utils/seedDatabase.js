@@ -9,7 +9,8 @@ const userOne = {
         password: bcrypt.hashSync("87654321")
     },
     user: undefined,
-    jwt: undefined
+    jwt: undefined,
+    posts: []
 }
 
 const seedDatabase = async () => {
@@ -19,7 +20,7 @@ const seedDatabase = async () => {
     })
     userOne.jwt = await generateToken(userOne.user.id)
 
-    await prisma.mutation.createPost({
+    userOne.posts.push(await prisma.mutation.createPost({
         data: {
             title: "Published post",
             body: "Body published",
@@ -30,9 +31,9 @@ const seedDatabase = async () => {
                 }
             }
         }
-    })
+    }))
 
-    await prisma.mutation.createPost({
+    userOne.posts.push(await prisma.mutation.createPost({
         data: {
             title: "Unpublished post",
             body: "Body unpublished",
@@ -43,7 +44,7 @@ const seedDatabase = async () => {
                 }
             }
         }
-    })
+    }))
 }
 
 export { seedDatabase as default , userOne }
