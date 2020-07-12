@@ -124,3 +124,29 @@ test('Should create a new post', async () => {
     expect(data.createPost.published).toBe(input.published)
     expect(existsPost).toBe(true)
 })
+
+test('Should delete a post', async () => {
+    const client = getClient(userOne.jwt)
+
+    const deletePost = gql`
+        mutation {
+            deletePost(
+                id: "${userOne.posts[1].id}"
+            ) {
+                id
+                title
+                published
+            }
+        }
+    `
+    const { data } = await client.mutate({
+        mutation: deletePost
+    })
+
+    const existsPost = await prisma.exists.Post({
+        id: data.deletePost.id
+    })
+
+    expect(data.deletePost.id).toBe(userOne.posts[1].id)
+    expect(existsPost).toBe(false)
+})
