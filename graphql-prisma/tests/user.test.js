@@ -24,6 +24,16 @@ const createUser = gql`
     }
 `
 
+const getUsers = gql`
+    query {
+        users {
+            id
+            name
+            email
+        }
+    }
+`
+
 test('Should create a new user', async () => {
     const variables = {
         data: {
@@ -46,16 +56,6 @@ test('Should create a new user', async () => {
 })
 
 test('Should expose public author profiles', async () => {
-    const getUsers = gql`
-        query {
-            users {
-                id
-                name
-                email
-            }
-        }
-    `
-
     const response = await client.query({
         query: getUsers
     })
