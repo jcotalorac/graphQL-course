@@ -42,6 +42,16 @@ const login = gql`
     }
 `
 
+const me = gql`
+    query {
+        me {
+            id
+            name
+            email
+        }
+    }
+`
+
 test('Should create a new user', async () => {
     const variables = {
         data: {
@@ -109,17 +119,7 @@ test('Should not sign up with short password', async () => {
 
 test('Should fetch user profile', async () => {
     const client = getClient(userOne.jwt)
-
-    const me = gql`
-        query {
-            me {
-                id
-                name
-                email
-            }
-        }
-    `
-
+    
     const { data } = await client.query({
         query: me
     })
@@ -130,16 +130,6 @@ test('Should fetch user profile', async () => {
 })
 
 test('Should throw auth error when profile is not authenticated', async () => {
-
-    const me = gql`
-        query {
-            me {
-                id
-                name
-                email
-            }
-        }
-    `
 
     await expect(
         client.query({
