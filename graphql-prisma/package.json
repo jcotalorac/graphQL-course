@@ -12,7 +12,8 @@
   },
   "jest": {
     "globalSetup": "./tests/jest/globalSetup.js",
-    "globalTeardown": "./tests/jest/globalTeardown.js"
+    "globalTeardown": "./tests/jest/globalTeardown.js",
+    "testTimeout": 10000
   },
   "author": "",
   "license": "ISC",
