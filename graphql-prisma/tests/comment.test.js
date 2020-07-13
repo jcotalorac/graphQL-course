@@ -5,6 +5,9 @@ import seedDatabase, { userOne, userTwo } from './utils/seedDatabase'
 import { deleteComment } from './utils/operations'
 import prisma from '../src/prisma'
 
+
+const client = getClient()
+
 beforeEach(seedDatabase)
 
 test('Should delete own comment', async () => {
@@ -28,8 +31,6 @@ test('Should delete own comment', async () => {
 })
 
 test('Should not delete other users comment', async() => {
-    const client = getClient(userTwo.jwt)
-
     const variables = {
         id: userOne.comments[0].id
     }
