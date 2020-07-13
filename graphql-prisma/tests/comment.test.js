@@ -31,6 +31,8 @@ test('Should delete own comment', async () => {
 })
 
 test('Should not delete other users comment', async() => {
+    const client = getClient(userTwo.jwt)
+
     const variables = {
         id: userOne.comments[0].id
     }
