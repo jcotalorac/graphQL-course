@@ -26,3 +26,18 @@ test('Should delete own comment', async () => {
     expect(data.deleteComment.id).toBe(userTwo.comments[0].id)
     expect(existsComment).toBe(false)
 })
+
+test('Should not delete other users comment', async() => {
+    const client = getClient(userTwo.jwt)
+
+    const variables = {
+        id: userOne.comments[0].id
+    }
+
+    await expect(
+            client.mutate({
+            mutation: deleteComment,
+            variables
+        }
+    )).rejects.toThrow()
+})
