@@ -128,6 +128,19 @@ const subscribeComment = gql`
     }
 `
 
+const subscribePost = gql`
+    subscription {
+        post {
+            mutation
+            node {
+                id
+                title
+                published
+            }
+        }
+    }
+`
+
 export {
     createUser,
     getUsers,
@@ -139,5 +152,6 @@ export {
     createPost,
     deletePost,
     deleteComment,
-    subscribeComment
+    subscribeComment,
+    subscribePost
 }

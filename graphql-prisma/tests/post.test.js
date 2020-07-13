@@ -3,7 +3,7 @@ import '@babel/polyfill'
 import seedDatabase, { userOne } from './utils/seedDatabase'
 import getClient from './utils/getClientWithSubs'
 import prisma from '../src/prisma'
-import { getPosts, myPosts, updatePost, createPost, deletePost } from './utils/operations'
+import { getPosts, myPosts, updatePost, createPost, deletePost, subscribePost } from './utils/operations'
 
 const client = getClient()
 
@@ -102,4 +102,21 @@ test('Should delete a post', async () => {
 
     expect(data.deletePost.id).toBe(userOne.posts[1].id)
     expect(existsPost).toBe(false)
+})
+
+test('Should notify post deletion in post subscription', async (done) => {
+    client.subscribe({
+        query: subscribePost
+    }).subscribe({
+        next(response) {
+            expect(response.data.post.mutation).toBe("DELETED")
+            done()
+        }
+    })
+
+    await prisma.mutation.deletePost({
+        where: {
+            id: userOne.posts[0].id
+        }
+    })
 })
