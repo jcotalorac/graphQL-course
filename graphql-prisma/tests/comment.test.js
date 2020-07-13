@@ -45,7 +45,7 @@ test('Should not delete other users comment', async() => {
     )).rejects.toThrow()
 })
 
-test('Should subscribe to comments for a post', async (done) => {
+test('Should subscribe to comments deletion for a post', async (done) => {
     const variables = {
         postId: userOne.posts[0].id
     }
