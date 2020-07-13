@@ -1,6 +1,6 @@
 import 'cross-fetch/polyfill'
 import '@babel/polyfill'
-import getClient from './utils/getClient'
+import getClient from './utils/getClientWithSubs'
 import seedDatabase, { userOne, userTwo } from './utils/seedDatabase'
 import { deleteComment } from './utils/operations'
 import prisma from '../src/prisma'

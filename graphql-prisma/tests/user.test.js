@@ -2,7 +2,7 @@ import 'cross-fetch/polyfill'
 import '@babel/polyfill'
 import prisma from '../src/prisma'
 import seedDatabase, { userOne } from './utils/seedDatabase'
-import getClient from './utils/getClient'
+import getClient from './utils/getClientWithSubs'
 import { createUser, getUsers, login, me } from './utils/operations'
 
 const client = getClient()
