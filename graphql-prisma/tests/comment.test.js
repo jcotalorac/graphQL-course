@@ -2,7 +2,7 @@ import 'cross-fetch/polyfill'
 import '@babel/polyfill'
 import getClient from './utils/getClientWithSubs'
 import seedDatabase, { userOne, userTwo } from './utils/seedDatabase'
-import { deleteComment } from './utils/operations'
+import { deleteComment, subscribeComment } from './utils/operations'
 import prisma from '../src/prisma'
 
 
@@ -43,4 +43,27 @@ test('Should not delete other users comment', async() => {
             variables
         }
     )).rejects.toThrow()
+})
+
+test('Should subscribe to comments for a post', async (done) => {
+    const variables = {
+        postId: userOne.posts[0].id
+    }
+
+    client.subscribe({
+        query: subscribeComment,
+        variables
+    }).subscribe({
+        next(response) {
+            expect(response.data.comment.mutation).toBe("DELETED")
+            expect(response.data.comment.node).toBe(null)
+            done()
+        }
+    })
+
+    await prisma.mutation.deleteComment({
+        where: {
+            id: userOne.comments[0].id
+        }
+    })
 })
