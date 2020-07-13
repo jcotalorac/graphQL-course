@@ -33,6 +33,7 @@ const seedDatabase = async () => {
     userOne.comments = []
     userTwo.comments = []
     
+    await prisma.mutation.deleteManyComments()
     await prisma.mutation.deleteManyPosts()
     await prisma.mutation.deleteManyUsers()
 
@@ -67,7 +68,7 @@ const seedDatabase = async () => {
         }
     }))
 
-    /* userOne.comments.push(await prisma.mutation.createComment({
+    userOne.comments.push(await prisma.mutation.createComment({
         data: {
             text: "Comment userOne",
             author: {
@@ -81,14 +82,14 @@ const seedDatabase = async () => {
                 }
             }
         }
-    })) */
+    }))
 
     userTwo.user = await prisma.mutation.createUser({
         data: userTwo.input
     })
     userTwo.jwt = await generateToken(userTwo.user.id)
 
-    /* userTwo.comments.push(await prisma.mutation.createComment({
+    userTwo.comments.push(await prisma.mutation.createComment({
         data: {
             text: "Comment userTwo",
             author: {
@@ -102,7 +103,7 @@ const seedDatabase = async () => {
                 }
             }
         }
-    })) */
+    }))
 }
 
 export { seedDatabase as default , userOne, userTwo }
