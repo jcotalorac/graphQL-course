@@ -23,7 +23,7 @@ var generateToken = /*#__PURE__*/function () {
           case 0:
             return _context.abrupt("return", _jsonwebtoken["default"].sign({
               userId: userId
-            }, 'thisisasecret', {
+            }, process.env.JWT_SECRET, {
               expiresIn: expirationTime
             }));
 

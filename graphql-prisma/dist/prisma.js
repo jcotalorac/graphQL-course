@@ -12,7 +12,7 @@ var _resolver = require("./resolvers/resolver");
 var prisma = new _prismaBinding.Prisma({
   typeDefs: 'src/generated/prisma.graphql',
   endpoint: process.env.PRISMA_ENDPOINT,
-  secret: 'thisismysupersecrettext',
+  secret: process.env.PRISMA_SECRET,
   fragmentReplacements: _resolver.fragmentReplacements
 }); // prisma.query.users(null, '{ id name email posts { id title } }')
 // .then((data) => {

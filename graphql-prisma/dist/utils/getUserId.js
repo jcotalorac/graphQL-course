@@ -16,7 +16,7 @@ var getUserId = function getUserId(request) {
   if (headerAuth) {
     var token = headerAuth.replace('Bearer ', '');
 
-    var decoded = _jsonwebtoken["default"].verify(token, 'thisisasecret');
+    var decoded = _jsonwebtoken["default"].verify(token, process.env.JWT_SECRET);
 
     return decoded.userId;
   }
