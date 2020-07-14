@@ -1,0 +1,11 @@
+projects:
+    prisma:
+        schema: prisma/prisma.yml
+        extensions:
+            endpoints:
+                default: http://localhost:4466/
+            codegen:
+                generates:
+                    ./src/generated/prisma.graphql:
+                        plugins:
+                            - schema-ast
